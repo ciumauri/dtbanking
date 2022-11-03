@@ -1,10 +1,15 @@
-import incomeImg from "../../assets/income.svg";
-import outcomeImg from "../../assets/outcome.svg";
-import totalImg from "../../assets/total.svg";
+import { useContext } from 'react'
 
-import { Container } from "./styles";
+import incomeImg from '../../assets/income.svg'
+import outcomeImg from '../../assets/outcome.svg'
+import totalImg from '../../assets/total.svg'
+import { BetsContext } from '../../BetsContext'
+import { Container } from './styles'
 
 export function Summary() {
+  const bets = useContext(BetsContext)
+  console.log(bets)
+
   return (
     <Container>
       <div>
@@ -29,5 +34,5 @@ export function Summary() {
         <strong>R$16.141,00</strong>
       </div>
     </Container>
-  );
+  )
 }

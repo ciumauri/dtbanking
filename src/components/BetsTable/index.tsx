@@ -1,24 +1,9 @@
-import { useEffect, useState } from 'react'
-import { api } from '../../services/api'
+import { useContext } from 'react'
+import { BetsContext } from '../../BetsContext'
 import { Container } from './styles'
 
-interface Bet {
-  id: number
-  league: string
-  market: string
-  stake: number
-  odd: number
-  betStatus: string
-  profit: number
-  createdAt: string
-}
-
 export function BetTable() {
-  const [bets, setBets] = useState<Bet[]>([])
-
-  useEffect(() => {
-    api.get('bets').then(response => setBets(response.data.bets))
-  }, [])
+  const bets = useContext(BetsContext)
 
   return (
     <Container>
@@ -28,7 +13,7 @@ export function BetTable() {
             <th>Liga</th>
             <th>Mercado</th>
             <th>Stake</th>
-            <th>ODD</th>
+            <th>Odd</th>
             <th>Status</th>
             <th>Lucro</th>
             <th>Data</th>

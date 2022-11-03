@@ -1,26 +1,28 @@
-import { useState } from "react";
-import Modal from "react-modal";
+import Modal from 'react-modal'
 
-import { Dashboard } from "./components/Dashboard";
-import { Header } from "./components/Header";
-import { NewBetModal } from "./components/NewBetModal";
-import { GlobalStyle } from "./styles/global";
+import { useState } from 'react'
 
-Modal.setAppElement("#root");
+import { BetsProvider } from './BetsContext'
+import { Dashboard } from './components/Dashboard'
+import { Header } from './components/Header'
+import { NewBetModal } from './components/NewBetModal'
+import { GlobalStyle } from './styles/global'
+
+Modal.setAppElement('#root')
 
 export function App() {
-  const [isNewBetModalOpen, setIsNewBetModalOpen] = useState(false);
+  const [isNewBetModalOpen, setIsNewBetModalOpen] = useState(false)
 
   function handleOpenNewBetModal() {
-    setIsNewBetModalOpen(true);
+    setIsNewBetModalOpen(true)
   }
 
   function handleCloseNewBetModal() {
-    setIsNewBetModalOpen(false);
+    setIsNewBetModalOpen(false)
   }
 
   return (
-    <>
+    <BetsProvider>
       <Header onOpenNewBetModal={handleOpenNewBetModal} />
 
       <Dashboard />
@@ -31,6 +33,6 @@ export function App() {
       />
 
       <GlobalStyle />
-    </>
-  );
+    </BetsProvider>
+  )
 }
