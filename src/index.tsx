@@ -1,34 +1,67 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { createServer } from "miragejs";
-import { App } from "./App";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { createServer, Model } from 'miragejs'
+import { App } from './App'
 
 createServer({
-  routes() {
-    this.namespace = "api";
+  models: {
+    bet: Model,
+  },
 
-    this.get("/bets", () => {
-      return [
+  seeds(server) {
+    server.db.loadData({
+      bets: [
         {
           id: 1,
-          league: "Campeonato Brasileiro",
-          market: "Back Favorito",
-          stake: 75,
+          league: 'Brasileiro Série A',
+          market: '1x',
+          stake: 100,
           odd: 1.5,
-          type: "green",
-          profit: 37.5,
-          createdAt: new Date(),
+          betStatus: 'green',
+          profit: 50,
+          createdAt: new Date('2022-10-27 15:00:00'),
         },
-      ];
-    });
+        {
+          id: 2,
+          league: 'Premier League',
+          market: 'Back Favorito',
+          stake: 100,
+          odd: 1.8,
+          betStatus: 'red',
+          profit: -100,
+          createdAt: new Date('2022-10-28 17:00:00'),
+        },
+        {
+          id: 3,
+          league: 'Italian Serie A',
+          market: '2x',
+          stake: 100,
+          odd: 1.6,
+          betStatus: 'green',
+          profit: 60,
+          createdAt: new Date('2022-10-29 19:00:00'),
+        },
+      ],
+    })
   },
-});
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+  routes() {
+    this.namespace = 'api'
+
+    this.get('/bets', () => {
+      return this.schema.all('bet')
+    })
+
+    this.post('/bets', (schema, request) => {
+      const data = JSON.parse(request.requestBody)
+      return schema.create('bet', data)
+    })
+  },
+})
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
-);
+)

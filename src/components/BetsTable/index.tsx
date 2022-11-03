@@ -1,11 +1,24 @@
-import { useEffect } from "react";
-import { api } from "../../services/api";
-import { Container } from "./styles";
+import { useEffect, useState } from 'react'
+import { api } from '../../services/api'
+import { Container } from './styles'
+
+interface Bet {
+  id: number
+  league: string
+  market: string
+  stake: number
+  odd: number
+  betStatus: string
+  profit: number
+  createdAt: string
+}
 
 export function BetTable() {
+  const [bets, setBets] = useState<Bet[]>([])
+
   useEffect(() => {
-    api.get("bets").then(response => console.log(response.data));
-  }, []);
+    api.get('bets').then(response => setBets(response.data.bets))
+  }, [])
 
   return (
     <Container>
@@ -23,26 +36,33 @@ export function BetTable() {
         </thead>
 
         <tbody>
-          <tr>
-            <td>Campeonato Brasileiro</td>
-            <td>Back Favorito</td>
-            <td>R$ 75,00</td>
-            <td>1.50</td>
-            <td className="green">GREEN</td>
-            <td className="green">R$ 37,50</td>
-            <td>20/10/2022</td>
-          </tr>
-          <tr>
-            <td>Campeonato Italiano</td>
-            <td>Over 1.5 FT</td>
-            <td>R$ 25,00</td>
-            <td>2.40</td>
-            <td className="red">RED</td>
-            <td className="red">-R$ 25,00</td>
-            <td>20/10/2022</td>
-          </tr>
+          {bets.map(bet => (
+            <tr key={bet.id}>
+              <td>{bet.league}</td>
+              <td>{bet.market}</td>
+              <td>
+                {new Intl.NumberFormat('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                }).format(bet.stake)}
+              </td>
+              <td>{bet.odd}</td>
+              <td className={bet.betStatus}>{bet.betStatus}</td>
+              <td className={bet.betStatus}>
+                {new Intl.NumberFormat('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                }).format(bet.profit)}
+              </td>
+              <td>
+                {new Intl.DateTimeFormat('pt-BR').format(
+                  new Date(bet.createdAt)
+                )}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </Container>
-  );
+  )
 }
