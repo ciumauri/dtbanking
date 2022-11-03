@@ -7,7 +7,7 @@ import { BetsContext } from '../../BetsContext'
 import { Container } from './styles'
 
 export function Summary() {
-  const bets = useContext(BetsContext)
+  const { bets } = useContext(BetsContext)
   console.log(bets)
 
   return (

@@ -1,6 +1,7 @@
-import { FormEvent, useState } from 'react'
-
+import { FormEvent, useState, useContext } from 'react'
 import Modal from 'react-modal'
+import { BetsContext } from '../../BetsContext'
+
 import waitImg from '../../assets/wait.svg'
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
@@ -8,7 +9,6 @@ import pushImg from '../../assets/push.svg'
 import closeImg from '../../assets/close.svg'
 
 import { Container, BetStatusContainer, RadioBox } from './styles'
-import { api } from '../../services/api'
 
 interface NewBetModalProps {
   isOpen: boolean
@@ -16,6 +16,8 @@ interface NewBetModalProps {
 }
 
 export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
+  const { createBet } = useContext(BetsContext)
+
   const [league, setLeague] = useState('')
   const [market, setMarket] = useState('')
   const [stake, setStake] = useState(0)
@@ -25,18 +27,16 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
 
   function handleCreateNewBet(event: FormEvent) {
     event.preventDefault()
-
-    const data = {
-      league,
-      market,
-      stake,
-      odd,
-      betStatus,
-      profit,
-    }
-    console.log(data)
-    api.post('/bets', data)
   }
+
+  createBet({
+    league,
+    market,
+    stake,
+    odd,
+    profit,
+    betStatus,
+  })
 
   return (
     <Modal
@@ -97,6 +97,13 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
           onChange={event => setOdd(Number(event.target.value))}
         />
 
+        <input
+          type="number"
+          placeholder="Lucro"
+          value={profit}
+          onChange={event => setProfit(Number(event.target.value))}
+        />
+
         <BetStatusContainer>
           <RadioBox
             type="button"
@@ -143,13 +150,6 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
             <span>Push</span>
           </RadioBox>
         </BetStatusContainer>
-
-        <input
-          type="number"
-          placeholder="Lucro"
-          value={profit}
-          onChange={event => setProfit(Number(event.target.value))}
-        />
 
         <button type="submit">Cadastrar</button>
       </Container>

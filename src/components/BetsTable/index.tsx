@@ -3,7 +3,7 @@ import { BetsContext } from '../../BetsContext'
 import { Container } from './styles'
 
 export function BetTable() {
-  const bets = useContext(BetsContext)
+  const { bets } = useContext(BetsContext)
 
   return (
     <Container>
@@ -14,8 +14,8 @@ export function BetTable() {
             <th>Mercado</th>
             <th>Stake</th>
             <th>Odd</th>
+            <th>Profit</th>
             <th>Status</th>
-            <th>Lucro</th>
             <th>Data</th>
           </tr>
         </thead>
@@ -32,18 +32,18 @@ export function BetTable() {
                 }).format(bet.stake)}
               </td>
               <td>{bet.odd}</td>
-              <td className={bet.betStatus}>{bet.betStatus}</td>
               <td className={bet.betStatus}>
                 {new Intl.NumberFormat('pt-BR', {
                   style: 'currency',
                   currency: 'BRL',
                 }).format(bet.profit)}
               </td>
-              <td>
+              {/* <td>
                 {new Intl.DateTimeFormat('pt-BR').format(
                   new Date(bet.createdAt)
                 )}
-              </td>
+              </td> */}
+              <td className={bet.betStatus}>{bet.betStatus}</td>
             </tr>
           ))}
         </tbody>
