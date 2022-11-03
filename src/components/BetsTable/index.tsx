@@ -38,12 +38,12 @@ export function BetTable() {
                   currency: 'BRL',
                 }).format(bet.profit)}
               </td>
-              {/* <td>
+              <td className={bet.betStatus}>{bet.betStatus}</td>
+              <td>
                 {new Intl.DateTimeFormat('pt-BR').format(
                   new Date(bet.createdAt)
                 )}
-              </td> */}
-              <td className={bet.betStatus}>{bet.betStatus}</td>
+              </td>
             </tr>
           ))}
         </tbody>

@@ -20,7 +20,7 @@ interface BetsProviderProps {
 
 interface BetsContextData {
   bets: Bet[]
-  createBet: (bet: BetInput) => void
+  createBet: (bet: BetInput) => Promise<void>
 }
 
 export const BetsContext = createContext<BetsContextData>({} as BetsContextData)
@@ -32,8 +32,14 @@ export function BetsProvider({ children }: BetsProviderProps) {
     api.get('bets').then(response => setBets(response.data.bets))
   }, [])
 
-  function createBet(bet: BetInput) {
-    api.post('/bets', bet)
+  async function createBet(betInput: BetInput) {
+    const response = await api.post('/bets', {
+      ...betInput,
+      createdAt: new Date(),
+    })
+    const { bet } = response.data
+
+    setBets([...bets, bet])
   }
 
   return (

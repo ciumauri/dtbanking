@@ -25,18 +25,27 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
   const [betStatus, setBetStatus] = useState('wait')
   const [profit, setProfit] = useState(0)
 
-  function handleCreateNewBet(event: FormEvent) {
+  async function handleCreateNewBet(event: FormEvent) {
     event.preventDefault()
-  }
 
-  createBet({
-    league,
-    market,
-    stake,
-    odd,
-    profit,
-    betStatus,
-  })
+    await createBet({
+      league,
+      market,
+      stake,
+      odd,
+      profit,
+      betStatus,
+    })
+
+    setLeague('')
+    setMarket('')
+    setStake(0)
+    setOdd(0)
+    setBetStatus('wait')
+    setProfit(0)
+
+    onRequestClose()
+  }
 
   return (
     <Modal
