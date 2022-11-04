@@ -1,5 +1,11 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
-import { api } from './services/api'
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import { api } from '../services/api'
 
 interface Bet {
   id: number
@@ -23,7 +29,7 @@ interface BetsContextData {
   createBet: (bet: BetInput) => Promise<void>
 }
 
-export const BetsContext = createContext<BetsContextData>({} as BetsContextData)
+const BetsContext = createContext<BetsContextData>({} as BetsContextData)
 
 export function BetsProvider({ children }: BetsProviderProps) {
   const [bets, setBets] = useState<Bet[]>([])
@@ -47,4 +53,10 @@ export function BetsProvider({ children }: BetsProviderProps) {
       {children}
     </BetsContext.Provider>
   )
+}
+
+export function useBets() {
+  const context = useContext(BetsContext)
+
+  return context
 }

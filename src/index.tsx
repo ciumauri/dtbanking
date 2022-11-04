@@ -27,7 +27,7 @@ createServer({
           market: 'Back Favorito',
           stake: 100,
           odd: 1.8,
-          profit: -100,
+          profit: 100,
           betStatus: 'red',
           createdAt: new Date('2022-10-28 17:00:00'),
         },

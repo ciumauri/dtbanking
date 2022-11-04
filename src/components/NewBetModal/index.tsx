@@ -1,10 +1,10 @@
-import { FormEvent, useState, useContext } from 'react'
+import { FormEvent, useState } from 'react'
 import Modal from 'react-modal'
-import { BetsContext } from '../../BetsContext'
+import { useBets } from '../../hooks/useBets'
 
 import waitImg from '../../assets/wait.svg'
-import incomeImg from '../../assets/income.svg'
-import outcomeImg from '../../assets/outcome.svg'
+import greenImg from '../../assets/green.svg'
+import redImg from '../../assets/red.svg'
 import pushImg from '../../assets/push.svg'
 import closeImg from '../../assets/close.svg'
 
@@ -16,12 +16,12 @@ interface NewBetModalProps {
 }
 
 export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
-  const { createBet } = useContext(BetsContext)
+  const { createBet } = useBets()
 
   const [league, setLeague] = useState('')
   const [market, setMarket] = useState('')
-  const [stake, setStake] = useState(0)
-  const [odd, setOdd] = useState(0)
+  const [stake, setStake] = useState(10.0)
+  const [odd, setOdd] = useState(1.5)
   const [betStatus, setBetStatus] = useState('wait')
   const [profit, setProfit] = useState(0)
 
@@ -39,8 +39,8 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
 
     setLeague('')
     setMarket('')
-    setStake(0)
-    setOdd(0)
+    setStake(10.0)
+    setOdd(1.5)
     setBetStatus('wait')
     setProfit(0)
 
@@ -68,6 +68,7 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
         <select
           value={league}
           onChange={event => setLeague(event.target.value)}
+          required
         >
           <option value="">Selecione a Liga</option>
           <option value="Alema">Alemã</option>
@@ -81,6 +82,7 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
         <select
           value={market}
           onChange={event => setMarket(event.target.value)}
+          required
         >
           <option value="">Selecione o Mercado</option>
           <option value="Back favorito">Back favorito</option>
@@ -97,6 +99,7 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
           placeholder="Stake"
           value={stake}
           onChange={event => setStake(Number(event.target.value))}
+          required
         />
 
         <input
@@ -104,6 +107,7 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
           placeholder="Odd"
           value={odd}
           onChange={event => setOdd(Number(event.target.value))}
+          required
         />
 
         <input
@@ -111,6 +115,7 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
           placeholder="Lucro"
           value={profit}
           onChange={event => setProfit(Number(event.target.value))}
+          required
         />
 
         <BetStatusContainer>
@@ -133,7 +138,7 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
             isActive={betStatus === 'green'}
             activeColor="green"
           >
-            <img src={incomeImg} alt="Green" />
+            <img src={greenImg} alt="Green" />
             <span>Green</span>
           </RadioBox>
           <RadioBox
@@ -144,7 +149,7 @@ export function NewBetModal({ isOpen, onRequestClose }: NewBetModalProps) {
             isActive={betStatus === 'red'}
             activeColor="red"
           >
-            <img src={outcomeImg} alt="Red" />
+            <img src={redImg} alt="Red" />
             <span>Red</span>
           </RadioBox>
           <RadioBox

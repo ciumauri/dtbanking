@@ -1,9 +1,8 @@
-import { useContext } from 'react'
-import { BetsContext } from '../../BetsContext'
+import { useBets } from '../../hooks/useBets'
 import { Container } from './styles'
 
 export function BetTable() {
-  const { bets } = useContext(BetsContext)
+  const { bets } = useBets()
 
   return (
     <Container>
@@ -31,7 +30,12 @@ export function BetTable() {
                   currency: 'BRL',
                 }).format(bet.stake)}
               </td>
-              <td>{bet.odd}</td>
+              <td>
+                {new Intl.NumberFormat('pt-BR', {
+                  minimumSignificantDigits: 3,
+                  style: 'decimal',
+                }).format(bet.odd)}
+              </td>
               <td className={bet.betStatus}>
                 {new Intl.NumberFormat('pt-BR', {
                   style: 'currency',

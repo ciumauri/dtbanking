@@ -2,7 +2,7 @@ import Modal from 'react-modal'
 
 import { useState } from 'react'
 
-import { BetsProvider } from './BetsContext'
+import { BetsProvider } from './hooks/useBets'
 import { Dashboard } from './components/Dashboard'
 import { Header } from './components/Header'
 import { NewBetModal } from './components/NewBetModal'
