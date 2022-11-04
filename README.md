@@ -4,7 +4,7 @@
 
 <p align="center">
   <img alt="dashboard" src=".github/dashboard.png" width="100%">
-  <img alt="cadastrar-transacao" src=".github/cadastrar-transacao.png" width="100%">
+  <img alt="cadastrar-transacao" src=".github/cadastrar-entrada.png" width="100%">
 </p>
 
 <br/>
@@ -26,12 +26,12 @@ Projeto desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-O dtmoney é uma aplicação de controle financeiro com a mesma ideia que o [dev.finances](https://github.com/FelipeBrenner/maratona-discover-01-devfinances), porém com tecnologias e recursos estudados e utilizados mais avançados, bibliotecas open source desenvolvidas pela comunidade. Foi desenvolvida durante as aulas do Chapter II da trilha de ReactJS do Bootcamp Ignite da Rocketseat, e nela é possível cadastrar e excluir transações e ver o saldo de entrada e saída 💰
+O dtbanking é uma aplicação de controle e gestão de banca para apostas esportivas, feito com tecnologias e recursos estudados e utilizados mais avançados, bibliotecas open source desenvolvidas pela comunidade. Foi desenvolvida durante as aulas do Chapter II da trilha de ReactJS do Bootcamp Ignite da Rocketseat, e nela é possível cadastrar e excluir entradas de apostas ver a banca atual, green's e red's 💰
 
 ## 🔖 Layout
 
-Você pode visualizar o layout do projeto através [desse link](https://www.figma.com/file/0xmu9mj2TJYoIOubBFWsk5/dtmoney-Ignite-(Copy)?node-id=0%3A1). É necessário ter conta no [Figma](https://figma.com) para acessá-lo.
+Você pode visualizar o layout do projeto por onde me baseei, através [desse link](https://www.figma.com/file/QRj8dKbGZkLXVHdYFMjlAR/DT-Money-(Community)?node-id=0%3A1). É necessário ter conta no [Figma](https://figma.com) para acessá-lo.
 
 ---
 
-Por Felipe Brenner
+Por Mauricio Oliveira
